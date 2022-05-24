@@ -1,4 +1,5 @@
 import React from 'react'
+import Footer from '../../sections/Footer/Footer'
 import Header from '../Header/Header'
 
 const Page = ({ children }) => {
@@ -6,6 +7,7 @@ const Page = ({ children }) => {
     <div>
       <Header />
       {children}
+      <Footer />
     </div>
   )
 }
