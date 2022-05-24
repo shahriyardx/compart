@@ -1,11 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Part = () => {
+const Part = ({ className }) => {
   return (
-    <div className={`shadow-lg p-4 rounded-lg relative border-2 
-      sm:last:grid sm:last:grid-cols-2 sm:last:col-span-2 sm:last:gap-5 
-      md:last:grid md:last:grid-cols-1 md:last:col-span-1 md:last:gap-0`}
+    <div className={`shadow-lg p-4 rounded-lg relative border-2 ${className}`}
     >
       <img 
         className='w-full h-52 object-cover rounded-md'

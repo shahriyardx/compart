@@ -21,6 +21,7 @@ const Header = () => {
         </div>
         <div className={`md:ml-auto flex flex-col w-full gap-1 absolute md:static md:flex-row md:w-auto top-20 left-0 px-4 bg-zinc-300 md:bg-transparent z-50 py-5 ${open ? '': 'hidden md:flex'}`}>
           <NavLink to="/">Home</NavLink>
+          <NavLink to="/shop">Shop</NavLink>
           <NavLink to="/dashboard">Dashboard</NavLink>
           <NavLink to="/login">Login</NavLink>
         </div>

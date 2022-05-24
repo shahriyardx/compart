@@ -11,7 +11,10 @@ const Parts = () => {
         <div className='mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5'>
           <Part />
           <Part />
-          <Part />
+          <Part className={`
+            sm:last:grid sm:last:grid-cols-2 sm:last:col-span-2 sm:last:gap-5 
+            md:last:grid md:last:grid-cols-1 md:last:col-span-1 md:last:gap-0
+          `} />
         </div>
       </Container>
     </div>
