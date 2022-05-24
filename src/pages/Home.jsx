@@ -3,6 +3,7 @@ import Page from '../components/Layout/Page'
 import Banner from '../sections/Banner/Banner'
 import BusinessSummary from '../sections/BusinessSummary/BusinessSummary'
 import Parts from '../sections/Parts/Parts'
+import Reviews from '../sections/Reviews/Reviews'
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
       <Banner />
       <Parts />
       <BusinessSummary />
+      <Reviews />
     </Page>
   )
 }
