@@ -5,7 +5,7 @@ import Page from "../components/Layout/Page";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const Register = () => {
   const {
     register,
     handleSubmit,
@@ -20,7 +20,7 @@ const Login = () => {
   return (
     <Page>
       <Container className="py-20 w-[400px] max-w-full">
-        <h1 className="page_heading">Login</h1>
+        <h1 className="page_heading">Register</h1>
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-3">
@@ -67,34 +67,20 @@ const Login = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-7 items-center gap-3 mt-5">
-              <div className="col-span-1 sm:col-span-3">
-                <button
-                  type="submit"
-                  className="w-full bg-black py-3 rounded-md text-white text-lg font-semibold"
-                >
-                  Login
-                </button>
-              </div>
-              <span className="text-center hidden sm:block">Or</span>
-              <div className="col-span-1 sm:col-span-3">
-                <button
-                  type="button"
-                  className="w-full py-3 rounded-md bg-blue-600 text-white text-lg font-semibold flex items-center justify-center gap-2"
-                >
-                  <div className="bg-white p-1 rounded-full">
-                    <FcGoogle className="text-xl" />
-                  </div>
-                  Google
-                </button>
-              </div>
+            <div className="mt-5">
+              <button
+                type="submit"
+                className="w-full bg-black py-3 rounded-md text-white text-lg font-semibold"
+              >
+                Register
+              </button>
             </div>
           </div>
         </form>
 
         <div className="mt-3 flex flex-col">
-          <Link to="/register" className="text-blue-500">
-            🙋‍♀️ New to compart?
+          <Link to="/login" className="text-blue-500">
+            🔥 Have an account?
           </Link>
 
           <Link to="/reset" className="text-blue-500">
@@ -106,4 +92,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
