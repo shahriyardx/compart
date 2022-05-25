@@ -3,8 +3,13 @@ import { useForm } from "react-hook-form";
 import Container from "../components/Layout/Container";
 import Page from "../components/Layout/Page";
 import { Link } from "react-router-dom";
+import { useSendPasswordResetEmail } from "react-firebase-hooks/auth";
+import { auth } from "../firebase";
+import { BiLoaderAlt } from "react-icons/bi";
 
 const ResetPassword = () => {
+  const [sendPasswordResetEmail, loading, error] =
+    useSendPasswordResetEmail(auth);
   const EMAIL_REGEX =
     /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
   const {
@@ -14,8 +19,8 @@ const ResetPassword = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    await sendPasswordResetEmail(data.email);
   };
 
   return (
@@ -51,13 +56,21 @@ const ResetPassword = () => {
             <div className="mt-5">
               <button
                 type="submit"
-                className="w-full bg-black py-3 rounded-md text-white text-lg font-semibold"
+                className={`w-full bg-black py-3 rounded-md text-white text-lg font-semibold flex items-center gap-2 justify-center ${
+                  loading && "cursor-not-allowed bg-zinc-700"
+                }`}
+                disabled={loading}
               >
-                Reset
+                {loading && <BiLoaderAlt className="text-2xl animate-spin" />}
+                <span>Register</span>
               </button>
             </div>
           </div>
         </form>
+
+        <p className="text-red-400 text-sm mt-2">
+          {error ? error.message : ""}
+        </p>
 
         <div className="mt-3 flex flex-col">
           <Link to="/login" className="text-blue-500">
