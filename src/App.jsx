@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import Dashboard from "./pages/Dashboard/Index";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Product from "./pages/Product";
@@ -19,6 +20,8 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/reset" element={<ResetPassword />} />
+
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </div>
   );
