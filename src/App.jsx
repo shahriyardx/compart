@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import EditProfile from "./pages/Dashboard/EditProfile";
 import Dashboard from "./pages/Dashboard/Index";
 import Profile from "./pages/Dashboard/Profile";
 import Home from "./pages/Home";
@@ -24,6 +25,7 @@ const App = () => {
 
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/profile" element={<Profile />} />
+        <Route path="/dashboard/profile/edit" element={<EditProfile />} />
       </Routes>
     </div>
   );
