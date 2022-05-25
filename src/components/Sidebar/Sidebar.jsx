@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BiX } from "react-icons/bi";
+import NavLink from "./NavLink/NavLink";
 
 const Sidebar = ({ open, setOpen }) => {
   return (
@@ -14,6 +15,10 @@ const Sidebar = ({ open, setOpen }) => {
           className="text-3xl text-red-500 lg:hidden"
           onClick={() => setOpen(false)}
         />
+      </div>
+
+      <div className="flex flex-col">
+        <NavLink to="/dashboard/profile">My Profile</NavLink>
       </div>
     </div>
   );

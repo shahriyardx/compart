@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard/Index";
+import Profile from "./pages/Dashboard/Profile";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Product from "./pages/Product";
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/reset" element={<ResetPassword />} />
 
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/profile" element={<Profile />} />
       </Routes>
     </div>
   );
