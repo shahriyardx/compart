@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import AddProduct from "./pages/Dashboard/AddProduct";
 import EditProfile from "./pages/Dashboard/EditProfile";
 import Dashboard from "./pages/Dashboard/Index";
+import Orders from "./pages/Dashboard/Orders";
 import Products from "./pages/Dashboard/Products";
 import Profile from "./pages/Dashboard/Profile";
 import Users from "./pages/Dashboard/Users";
@@ -35,6 +36,8 @@ const App = () => {
 
         <Route path="/dashboard/products" element={<Products />} />
         <Route path="/dashboard/products/add" element={<AddProduct />} />
+
+        <Route path="/dashboard/orders" element={<Orders />} />
       </Routes>
     </div>
   );

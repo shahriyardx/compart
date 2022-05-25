@@ -19,9 +19,10 @@ const Sidebar = ({ open, setOpen }) => {
 
       <div className="flex flex-col">
         <NavLink to="/dashboard/profile">My Profile</NavLink>
-        <NavLink to="/dashboard/users">All Users</NavLink>
         <NavLink to="/dashboard/products">Products</NavLink>
+        <NavLink to="/dashboard/users">All Users</NavLink>
         <NavLink to="/dashboard/products/add">Add Product</NavLink>
+        <NavLink to="/dashboard/orders">All Orders</NavLink>
       </div>
     </div>
   );
