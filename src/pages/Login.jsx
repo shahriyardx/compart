@@ -1,17 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Container from "../components/Layout/Container";
 import Page from "../components/Layout/Page";
 import { FcGoogle, FcSynchronize } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   useSignInWithGoogle,
   useSignInWithEmailAndPassword,
 } from "react-firebase-hooks/auth";
 import { auth } from "../firebase";
 import { BiLoaderAlt } from "react-icons/bi";
+import axios from "axios";
+import { API_BASE } from "./config";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [signInWithGoogle, google_user, google_loading, google_error] =
     useSignInWithGoogle(auth);
   const [signInWithEmailAndPassword, email_user, email_loading, email_error] =
@@ -32,6 +35,23 @@ const Login = () => {
   const handleEmailSignIn = async ({ email, password }) => {
     await signInWithEmailAndPassword(email, password);
   };
+
+  const getJwt = async (user) => {
+    const { email } = user.user;
+    const {
+      data: { accessToken },
+    } = await axios.post(`${API_BASE}/login`, {
+      email,
+    });
+
+    localStorage.setItem("accessToken", accessToken);
+    navigate("/dashboard");
+  };
+
+  useEffect(() => {
+    if (!google_user && !email_user) return;
+    getJwt(google_user || email_user);
+  }, [google_user, email_user]);
 
   return (
     <Page>

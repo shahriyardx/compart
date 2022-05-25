@@ -9,9 +9,7 @@ const DashPage = ({ children }) => {
       <Sidebar open={open} setOpen={setOpen} />
       <div className="max-h-screen overflow-y-auto">
         <DashHeader open={open} setOpen={setOpen} />
-        <div className="container mx-auto px-4" d>
-          {children}
-        </div>
+        <div className="container mx-auto px-4">{children}</div>
       </div>
     </div>
   );
