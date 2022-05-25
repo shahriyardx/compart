@@ -1,14 +1,44 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useAuthState, useUpdateProfile } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
+import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import DashPage from "../../components/Layout/DashPage";
+import { auth } from "../../firebase";
+import { API_BASE } from "../config";
 
 const EditProfile = () => {
+  const [profile, setProfile] = useState({});
+  const [user, loading] = useAuthState(auth);
   const { register, handleSubmit } = useForm();
+  const [updateProfile, updating, error] = useUpdateProfile(auth);
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
+    const { displayName, ...otherData } = data;
+
+    await updateProfile({ displayName });
+    console.log(otherData);
+    fetch(`${API_BASE}/user/update/${user?.email}`, {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(otherData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        alert("Profile updated");
+      });
   };
+
+  useEffect(() => {
+    if (!user) return;
+
+    fetch(`${API_BASE}/user/${user?.email}`)
+      .then((response) => response.json())
+      .then((data) => setProfile(data));
+  }, [user]);
 
   return (
     <DashPage>
@@ -28,55 +58,79 @@ const EditProfile = () => {
             src="/images/demo/profile.jpg"
             alt=""
           />
-
-          <div className="mt-2">
-            <input type="file" name="image" />
-            <button className="px-5 py-3 bg-black mt-2 rounded-md text-white font-semibold">
-              Update Image
-            </button>
-          </div>
         </div>
 
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="sm:col-span-2 md:col-span-3 flex flex-col gap-5"
         >
-          <div>
-            <h1 className="text-2xl font-bold">Username</h1>
-            <input
-              type="text"
-              className="w-full md:w-96"
-              placeholder="Username"
-              {...register("username")}
-            />
-          </div>
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+            <div>
+              <div>
+                <h1 className="text-2xl font-bold">
+                  <span>Email</span>
+                  <span className="text-zinc-500 text-sm"> (Can't change)</span>
+                </h1>
+                <p className="text-lg">{user?.email}</p>
+              </div>
 
-          <div>
-            <h1 className="text-2xl font-bold">
-              <span>Email</span>
-              <span className="text-zinc-500 text-sm"> (Can't change)</span>
-            </h1>
-            <p className="text-lg">mdshahriyaralam552@gmail.com</p>
-          </div>
+              <div>
+                <h1 className="text-2xl font-bold">Username</h1>
+                <input
+                  type="text"
+                  className="w-full"
+                  placeholder="Username"
+                  defaultValue={user?.displayName}
+                  {...register("displayName", { required: true })}
+                />
+              </div>
 
-          <div>
-            <h1 className="text-2xl font-bold">Address</h1>
-            <input
-              type="text"
-              className="w-full md:w-96"
-              placeholder="Address"
-              {...register("address")}
-            />
-          </div>
+              <div>
+                <h1 className="text-2xl font-bold">Address</h1>
+                <input
+                  type="text"
+                  className="w-full"
+                  placeholder="Address"
+                  defaultValue={profile?.location}
+                  {...register("location")}
+                />
+              </div>
+            </div>
 
-          <div>
-            <h1 className="text-2xl font-bold">Phone</h1>
-            <input
-              type="text"
-              className="w-full md:w-96"
-              placeholder="Phone"
-              {...register("phone")}
-            />
+            <div>
+              <div>
+                <h1 className="text-2xl font-bold">Phone</h1>
+                <input
+                  type="text"
+                  className="w-full"
+                  placeholder="Phone"
+                  defaultValue={profile?.phone}
+                  {...register("phone")}
+                />
+              </div>
+
+              <div>
+                <h1 className="text-2xl font-bold">Education</h1>
+                <input
+                  type="text"
+                  className="w-full"
+                  placeholder="Education"
+                  defaultValue={profile?.education}
+                  {...register("education")}
+                />
+              </div>
+
+              <div>
+                <h1 className="text-2xl font-bold">Linkedin</h1>
+                <input
+                  type="text"
+                  className="w-full"
+                  placeholder="Linkedin"
+                  defaultValue={profile?.linkedin}
+                  {...register("linkedin")}
+                />
+              </div>
+            </div>
           </div>
 
           <div>

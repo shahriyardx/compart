@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import RequireAuth from "./firebase/RequireAuth";
 import AddProduct from "./pages/Dashboard/AddProduct";
 import EditProfile from "./pages/Dashboard/EditProfile";
 import Dashboard from "./pages/Dashboard/Index";
@@ -27,7 +28,14 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/reset" element={<ResetPassword />} />
 
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route
+          path="/dashboard"
+          element={
+            <RequireAuth>
+              <Dashboard />
+            </RequireAuth>
+          }
+        />
 
         <Route path="/dashboard/profile" element={<Profile />} />
         <Route path="/dashboard/profile/edit" element={<EditProfile />} />

@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { Link } from "react-router-dom";
 import DashPage from "../../components/Layout/DashPage";
+import { auth } from "../../firebase";
+import { API_BASE } from "../config";
 
 const Profile = () => {
+  const [profile, setProfile] = useState({});
+  const [user, loading] = useAuthState(auth);
+
+  useEffect(() => {
+    if (!user) return;
+
+    fetch(`${API_BASE}/user/${user?.email}`)
+      .then((response) => response.json())
+      .then((data) => setProfile(data));
+  }, [user]);
+
   return (
     <DashPage>
       <div className="flex justify-between my-10">
@@ -24,24 +38,49 @@ const Profile = () => {
         </div>
 
         <div className="sm:col-span-2 md:col-span-3 flex flex-col gap-5">
-          <div>
-            <h1 className="text-2xl font-bold">Username</h1>
-            <p className="text-lg">Awesome user</p>
-          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div>
+              <div>
+                <h1 className="text-2xl font-bold">Username</h1>
+                <p className="text-lg">{user?.displayName}</p>
+              </div>
 
-          <div>
-            <h1 className="text-2xl font-bold">Email</h1>
-            <p className="text-lg">mdshahriyaralam552@gmail.com</p>
-          </div>
+              <div>
+                <h1 className="text-2xl font-bold">Email</h1>
+                <p className="text-lg">
+                  {user?.email}{" "}
+                  <span
+                    className={`text-sm ${
+                      user?.emailVerified ? "text-green-500" : "text-red-500"
+                    }`}
+                  >
+                    ({user?.emailVerified ? "Verified" : "Unverified"})
+                  </span>
+                </p>
+              </div>
 
-          <div>
-            <h1 className="text-2xl font-bold">Address</h1>
-            <p className="text-lg">Dhaka bangladesh</p>
-          </div>
+              <div>
+                <h1 className="text-2xl font-bold">Address</h1>
+                <p className="text-lg">{profile.location || "Not set"}</p>
+              </div>
+            </div>
 
-          <div>
-            <h1 className="text-2xl font-bold">Phone</h1>
-            <p className="text-lg">+8801761333883</p>
+            <div>
+              <div>
+                <h1 className="text-2xl font-bold">Phone</h1>
+                <p className="text-lg">{profile.phone || "Not set"}</p>
+              </div>
+
+              <div>
+                <h1 className="text-2xl font-bold">Education</h1>
+                <p className="text-lg">{profile.education || "Not set"}</p>
+              </div>
+
+              <div>
+                <h1 className="text-2xl font-bold">Linkedin</h1>
+                <p className="text-lg">{profile.linkedin || "Not set"}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

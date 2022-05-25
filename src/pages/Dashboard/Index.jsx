@@ -4,7 +4,11 @@ import DashPage from "../../components/Layout/DashPage";
 const Dashboard = () => {
   return (
     <DashPage>
-      <p>Hwllo Worlkd</p>
+      <div className="min-h-[calc(100vh-64px)] flex justify-center items-center">
+        <h1 className="text-4xl font-bold text-blue-500">
+          Welcome to Dashboard
+        </h1>
+      </div>
     </DashPage>
   );
 };
