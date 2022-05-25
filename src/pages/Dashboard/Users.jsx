@@ -25,7 +25,7 @@ const Users = () => {
               <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
                 Admin
               </td>
-              <td className="p-3 text-sm text-gray-700 whitespace-nowrap flex gap-2 flex-wrap">
+              <td className="p-3 text-sm text-gray-700 whitespace-nowrap flex gap-2">
                 <button className="px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg">
                   Delete
                 </button>

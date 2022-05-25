@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const DashHeader = ({ open, setOpen }) => {
   return (
-    <div className="h-16 bg-white flex justify-between px-4 items-center">
+    <div className="h-16 bg-zinc-200 flex justify-between px-4 items-center">
       <div className="flex items-center gap-2">
         <BiMenu className="text-2xl lg:hidden" onClick={() => setOpen(!open)} />
         <span className="text-xl md:text-2xl font-black hidden sm:block">
