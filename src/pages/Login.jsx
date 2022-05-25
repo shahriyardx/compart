@@ -2,10 +2,20 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import Container from "../components/Layout/Container";
 import Page from "../components/Layout/Page";
-import { FcGoogle } from "react-icons/fc";
+import { FcGoogle, FcSynchronize } from "react-icons/fc";
 import { Link } from "react-router-dom";
+import {
+  useSignInWithGoogle,
+  useSignInWithEmailAndPassword,
+} from "react-firebase-hooks/auth";
+import { auth } from "../firebase";
+import { BiLoaderAlt } from "react-icons/bi";
 
 const Login = () => {
+  const [signInWithGoogle, google_user, google_loading, google_error] =
+    useSignInWithGoogle(auth);
+  const [signInWithEmailAndPassword, email_user, email_loading, email_error] =
+    useSignInWithEmailAndPassword(auth);
   const EMAIL_REGEX =
     /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
   const {
@@ -15,8 +25,12 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const handleGoogleSignin = async () => {
+    await signInWithGoogle();
+  };
+
+  const handleEmailSignIn = async ({ email, password }) => {
+    await signInWithEmailAndPassword(email, password);
   };
 
   return (
@@ -24,7 +38,7 @@ const Login = () => {
       <Container className="py-20 w-[400px] max-w-full">
         <h1 className="page_heading">Login</h1>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(handleEmailSignIn)}>
           <div className="flex flex-col gap-3">
             {/* Email field */}
             <div className="flex flex-col">
@@ -76,19 +90,30 @@ const Login = () => {
               <div className="col-span-1 sm:col-span-3">
                 <button
                   type="submit"
-                  className="w-full bg-black py-3 rounded-md text-white text-lg font-semibold"
+                  className={`w-full bg-black py-3 rounded-md text-white text-lg font-semibold flex items-center gap-2 justify-center ${
+                    email_loading && "cursor-not-allowed bg-zinc-700"
+                  }`}
+                  disabled={google_loading || email_loading}
                 >
-                  Login
+                  {email_loading && (
+                    <BiLoaderAlt className="text-2xl animate-spin" />
+                  )}
+                  <span>Login</span>
                 </button>
               </div>
               <span className="text-center hidden sm:block">Or</span>
               <div className="col-span-1 sm:col-span-3">
                 <button
                   type="button"
+                  onClick={handleGoogleSignin}
                   className="w-full py-3 rounded-md bg-blue-600 text-white text-lg font-semibold flex items-center justify-center gap-2"
                 >
                   <div className="bg-white p-1 rounded-full">
-                    <FcGoogle className="text-xl" />
+                    {google_loading ? (
+                      <FcSynchronize className="text-xl animate-spin" />
+                    ) : (
+                      <FcGoogle className="text-xl" />
+                    )}
                   </div>
                   Google
                 </button>
@@ -96,6 +121,14 @@ const Login = () => {
             </div>
           </div>
         </form>
+
+        <p className="text-red-400 text-sm mt-2">
+          {google_error
+            ? google_error.message
+            : email_error
+            ? email_error.message
+            : ""}
+        </p>
 
         <div className="mt-3 flex flex-col">
           <Link to="/register" className="text-blue-500">
