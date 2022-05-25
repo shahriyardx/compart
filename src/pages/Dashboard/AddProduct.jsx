@@ -1,16 +1,20 @@
+import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
 import DashPage from "../../components/Layout/DashPage";
+import { API_BASE } from "../config";
 
 const AddProduct = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (prooductData) => {
+    await axios.post(`${API_BASE}/products/add`, prooductData);
+    reset();
   };
 
   return (
@@ -50,7 +54,7 @@ const AddProduct = () => {
             </div>
           </div>
 
-          <div className="mt-3 grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+          <div className="mt-3 grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
             <div className="flex flex-col">
               <label className="font-bold text-lg">Unit Price</label>
               <input
@@ -99,6 +103,20 @@ const AddProduct = () => {
                 {errors.quantity?.type === "required" && "Quantity is required"}
                 {errors.quantity?.type === "min" &&
                   "Quantity must be 1 or more"}
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:col-span-2 md:col-span-1">
+              <label className="font-bold text-lg">Image</label>
+              <input
+                type="text"
+                placeholder="Image"
+                {...register("image", {
+                  required: true,
+                })}
+              />
+              <p className="text-red-400">
+                {errors.image?.type === "required" && "Image is required"}
               </p>
             </div>
           </div>

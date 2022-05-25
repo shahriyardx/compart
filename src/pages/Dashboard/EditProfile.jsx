@@ -18,13 +18,12 @@ const EditProfile = () => {
     const { displayName, ...otherData } = data;
 
     await updateProfile({ displayName });
-    console.log(otherData);
-    fetch(`${API_BASE}/user/update/${user?.email}`, {
+    fetch(`${API_BASE}/user/update`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify(otherData),
+      body: JSON.stringify({ email: user.email, ...otherData }),
     })
       .then((response) => response.json())
       .then((data) => {
