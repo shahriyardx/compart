@@ -2,8 +2,6 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import Container from "../components/Layout/Container";
 import Page from "../components/Layout/Page";
-import Stars from "../components/Review/Stars";
-import Review from "../components/Review/Review";
 import useProduct from "../hooks/useProduct";
 
 const Product = () => {
@@ -26,7 +24,6 @@ const Product = () => {
 
               <div>
                 <h1 className="text-4xl font-bold">{product.name}</h1>
-                <Stars />
                 <h2 className="text-3xl mt-2 mb-5">
                   <span className="underline underline-offset-2">
                     ${product.price}
