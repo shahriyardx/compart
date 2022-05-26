@@ -6,6 +6,7 @@ import EditProfile from "./pages/Dashboard/EditProfile";
 import Dashboard from "./pages/Dashboard/Index";
 import MyOrders from "./pages/Dashboard/MyOrders";
 import Orders from "./pages/Dashboard/Orders";
+import Payment from "./pages/Dashboard/Payment";
 import Products from "./pages/Dashboard/Products";
 import Profile from "./pages/Dashboard/Profile";
 import Users from "./pages/Dashboard/Users";
@@ -48,6 +49,8 @@ const App = () => {
 
         <Route path="/dashboard/orders" element={<Orders />} />
         <Route path="/dashboard/orders/my" element={<MyOrders />} />
+
+        <Route path="/dashboard/pay/:orderId" element={<Payment />} />
       </Routes>
     </div>
   );

@@ -1,5 +1,6 @@
 import React from "react";
 import { useQuery } from "react-query";
+import { Link } from "react-router-dom";
 import DashPage from "../../components/Layout/DashPage";
 import useSwal from "../../hooks/useSwal";
 import { API_BASE } from "../config";
@@ -107,12 +108,13 @@ const MyOrders = () => {
                           Delete
                         </button>
                         {order.status !== "Cancelled" && (
-                          <button
+                          <Link
+                            to={`/dashboard/pay/${order._id}`}
                             onClick={() => {}}
                             className="px-3 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg"
                           >
                             Pay Now
-                          </button>
+                          </Link>
                         )}
                       </>
                     )}
