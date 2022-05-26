@@ -24,7 +24,7 @@ const Profile = () => {
         <div>
           <img
             className="w-full aspect-square object-cover rounded-xl"
-            src="/images/demo/profile.jpg"
+            src={user.photoURL || "/images/profile.jpg"}
             alt=""
           />
         </div>
