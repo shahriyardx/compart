@@ -13,6 +13,7 @@ import Payment from "./pages/Dashboard/Payment";
 import Products from "./pages/Dashboard/Products";
 import Profile from "./pages/Dashboard/Profile";
 import Users from "./pages/Dashboard/Users";
+import E404 from "./pages/E404";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Portfolio from "./pages/Portfolio";
@@ -26,6 +27,7 @@ const App = () => {
   return (
     <div>
       <Routes>
+        <Route path="*" element={<E404 />} />
         <Route path="/" element={<Home />} />
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/blog" element={<Blog />} />
