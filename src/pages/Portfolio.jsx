@@ -36,6 +36,17 @@ const Portfolio = () => {
           <h2 className="text-lg font-normal">
             Education: <span className="font-bold">Diploma In Engineering</span>
           </h2>
+
+          <h2 className="text-lg font-normal">
+            Website:{" "}
+            <a
+              href="https://shahriyar.dev"
+              target="_blank"
+              className="text-blue-500 font-bold"
+            >
+              https://shahriyar.dev
+            </a>
+          </h2>
         </div>
 
         <div className="mt-10">
