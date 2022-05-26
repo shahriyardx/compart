@@ -30,7 +30,7 @@ const Products = () => {
           <tbody>
             {products?.map((item, index) => {
               return (
-                <tr className="even:bg-zinc-200">
+                <tr key={index} className="even:bg-zinc-200">
                   <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
                     {index + 1}
                   </td>
