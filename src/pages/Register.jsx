@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Container from "../components/Layout/Container";
 import Page from "../components/Layout/Page";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "../firebase";
 import { BiLoaderAlt } from "react-icons/bi";
+import axios from "axios";
+import { API_BASE } from "./config";
 
 const Register = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/dashboard";
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
   const EMAIL_REGEX =
@@ -23,6 +28,23 @@ const Register = () => {
     await createUserWithEmailAndPassword(data.email, data.password);
     reset();
   };
+
+  const getJwt = async (user) => {
+    const { email } = user.user;
+    const {
+      data: { accessToken },
+    } = await axios.post(`${API_BASE}/auth/login`, {
+      email,
+    });
+
+    localStorage.setItem("accessToken", accessToken);
+    navigate(from);
+  };
+
+  useEffect(() => {
+    if (!user) return;
+    getJwt(user);
+  }, [user]);
 
   return (
     <Page>

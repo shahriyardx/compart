@@ -6,8 +6,10 @@ import { Link } from "react-router-dom";
 import { useSendPasswordResetEmail } from "react-firebase-hooks/auth";
 import { auth } from "../firebase";
 import { BiLoaderAlt } from "react-icons/bi";
+import useSwal from "../hooks/useSwal";
 
 const ResetPassword = () => {
+  const Swal = useSwal();
   const [sendPasswordResetEmail, loading, error] =
     useSendPasswordResetEmail(auth);
   const EMAIL_REGEX =
@@ -21,6 +23,12 @@ const ResetPassword = () => {
 
   const onSubmit = async (data) => {
     await sendPasswordResetEmail(data.email);
+
+    Swal.fire({
+      text: "Email verification sent",
+      icon: "success",
+    });
+    reset();
   };
 
   return (
