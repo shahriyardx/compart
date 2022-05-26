@@ -2,15 +2,46 @@ import React from "react";
 import { useQuery } from "react-query";
 import DashPage from "../../components/Layout/DashPage";
 import { API_BASE } from "../config";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import "sweetalert2/dist/sweetalert2.css";
+
+const MySwal = withReactContent(Swal);
 
 const Products = () => {
   const {
     data: products,
     isLoading,
     error,
+    refetch,
   } = useQuery("products", () =>
     fetch(`${API_BASE}/products`).then((data) => data.json())
   );
+
+  const deleteProduct = async (productId) => {
+    MySwal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to recover this product!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      showLoaderOnConfirm: true,
+      preConfirm: async () => {
+        return fetch(`${API_BASE}/products/delete/${productId}`, {
+          method: "DELETE",
+        }).then((response) => response.json());
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        MySwal.fire({
+          text: "Product Deleted",
+        });
+        refetch();
+      }
+    });
+
+    console.log(`Deleteting ${productId}`);
+  };
 
   return (
     <DashPage>
@@ -46,7 +77,10 @@ const Products = () => {
                   </td>
 
                   <td className="p-3 text-sm text-gray-700 whitespace-nowrap">
-                    <button className="px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg">
+                    <button
+                      onClick={() => deleteProduct(item._id)}
+                      className="px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg"
+                    >
                       Delete
                     </button>
                   </td>
