@@ -14,9 +14,14 @@ const RequireAdmin = (props) => {
     return <Loading />;
   }
 
-  if (!user || profile.role !== "Admin") {
+  if (!user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
+
+  if (profile.role !== "Admin") {
+    return <Navigate to="/dashboard" state={{ from: location }} replace />;
+  }
+
   return props.children;
 };
 
