@@ -31,6 +31,7 @@ const Header = () => {
         >
           <NavLink to="/">Home</NavLink>
           <NavLink to="/shop">Shop</NavLink>
+          <NavLink to="/portfolio">Portfolio</NavLink>
           <NavLink to="/dashboard">Dashboard</NavLink>
           {user ? (
             <button

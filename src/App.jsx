@@ -13,6 +13,7 @@ import Profile from "./pages/Dashboard/Profile";
 import Users from "./pages/Dashboard/Users";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Portfolio from "./pages/Portfolio";
 import Product from "./pages/Product";
 import Purchase from "./pages/Purchase";
 import Register from "./pages/Register";
@@ -24,6 +25,7 @@ const App = () => {
     <div>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/shop/:productId" element={<Product />} />
         <Route
