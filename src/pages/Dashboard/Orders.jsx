@@ -123,16 +123,20 @@ const Orders = () => {
                         >
                           Cancel
                         </button>
-                        <button
-                          onClick={() => updateStatus(order.status, order._id)}
-                          className="px-3 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg"
-                        >
-                          Mark as shipped
-                        </button>
+                        {order.paid && (
+                          <button
+                            onClick={() =>
+                              updateStatus(order.status, order._id)
+                            }
+                            className="px-3 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg"
+                          >
+                            Mark as shipped
+                          </button>
+                        )}
                       </>
                     )}
 
-                    {order.status == "Shipped" && (
+                    {order.status == "Shipped" && order.paid && (
                       <button
                         onClick={() => updateStatus(order.status, order._id)}
                         className="px-3 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg"

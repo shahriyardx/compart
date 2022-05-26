@@ -87,7 +87,7 @@ const Purchase = () => {
                 <div className="flex gap-3 mt-2 bg-zinc-200 p-3 rounded-md">
                   <img
                     className="w-20 aspect-square object-cover rounded-md"
-                    src="/images/demo/headphone.jpg"
+                    src={product.image}
                     alt=""
                   />
 

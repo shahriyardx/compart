@@ -6,7 +6,7 @@ const Part = ({ className, part }) => {
     <div className={`shadow-lg p-4 rounded-lg relative border-2 ${className}`}>
       <img
         className="w-full h-52 object-cover rounded-md"
-        src="/images/demo/mouse.jpg"
+        src={part.image}
         alt="mouse"
       />
 

@@ -15,11 +15,7 @@ const Product = () => {
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div className="shadow-lg rounded-lg">
-                <img
-                  src="/images/demo/headphone.jpg"
-                  className="w-full"
-                  alt="headphone"
-                />
+                <img src={product.image} className="w-full" alt="headphone" />
               </div>
 
               <div>
