@@ -40,7 +40,7 @@ const Login = () => {
     const { email } = user.user;
     const {
       data: { accessToken },
-    } = await axios.post(`${API_BASE}/login`, {
+    } = await axios.post(`${API_BASE}/auth/login`, {
       email,
     });
 
