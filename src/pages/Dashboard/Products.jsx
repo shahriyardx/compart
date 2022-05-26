@@ -41,7 +41,7 @@ const Products = () => {
 
   return (
     <DashPage>
-      <h1 className="text-2xl">All Products : {products?.length}</h1>
+      <h1 className="text-2xl mt-5 mb-3">All Products : {products?.length}</h1>
 
       <div className="w-full mt-2 overflow-x-auto">
         <table className="table-auto text-left w-full">

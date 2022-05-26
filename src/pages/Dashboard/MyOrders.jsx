@@ -1,45 +1,33 @@
-import axios from "axios";
 import React from "react";
 import { useQuery } from "react-query";
 import DashPage from "../../components/Layout/DashPage";
 import useSwal from "../../hooks/useSwal";
 import { API_BASE } from "../config";
 
-const Orders = () => {
+const MyOrders = () => {
   const Swal = useSwal();
   const { data: orders, refetch } = useQuery("orders", () =>
-    fetch(`${API_BASE}/order`).then((data) => data.json())
+    fetch(`${API_BASE}/order/my`).then((data) => data.json())
   );
 
-  const updateStatus = async (currentStatus, order_id) => {
-    const statusMap = {
-      Created: "Shipped",
-      Shipped: "Delivered",
-      Cancelled: "Cancelled",
-    };
-
-    const newStatus = { order_id, status: statusMap[currentStatus] };
+  const deleteOrder = async (orderId) => {
     Swal.fire({
       title: "Are you sure?",
-      text: `This will change the product status to ${statusMap[currentStatus]}`,
+      text: "You won't be able to recover this order!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "Confirm",
+      confirmButtonText: "Yes, delete it!",
       showLoaderOnConfirm: true,
       preConfirm: async () => {
-        return fetch(`${API_BASE}/order/update`, {
-          method: "PUT",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify(newStatus),
+        return fetch(`${API_BASE}/order/delete/${orderId}`, {
+          method: "DELETE",
         }).then((response) => response.json());
       },
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
+          text: "Order Deleted",
           icon: "success",
-          text: `Order has been ${statusMap[currentStatus]}`,
         });
         refetch();
       }
@@ -48,7 +36,7 @@ const Orders = () => {
 
   return (
     <DashPage>
-      <h1 className="text-2xl mt-5 mb-3">All Orders</h1>
+      <h1 className="text-2xl mt-5 mb-3">My Orders</h1>
 
       <div className="w-full mt-2 overflow-x-auto">
         <table className="table-auto text-left w-full">
@@ -110,33 +98,26 @@ const Orders = () => {
                   </td>
 
                   <td className="p-3 text-sm text-gray-700 whitespace-nowrap flex gap-2">
-                    {order.status == "Created" && (
+                    {!order.paid && (
                       <>
                         <button
-                          onClick={() => updateStatus("Cancelled", order._id)}
+                          onClick={() => deleteOrder(order._id)}
                           className="px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg"
                         >
-                          Cancel
+                          Delete
                         </button>
-                        <button
-                          onClick={() => updateStatus(order.status, order._id)}
-                          className="px-3 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg"
-                        >
-                          Mark as shipped
-                        </button>
+                        {order.status !== "Cancelled" && (
+                          <button
+                            onClick={() => {}}
+                            className="px-3 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg"
+                          >
+                            Pay Now
+                          </button>
+                        )}
                       </>
                     )}
 
-                    {order.status == "Shipped" && (
-                      <button
-                        onClick={() => updateStatus(order.status, order._id)}
-                        className="px-3 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg"
-                      >
-                        Mark as delivered
-                      </button>
-                    )}
-
-                    {["Delivered", "Cancelled"].includes(order.status) && (
+                    {order.paid && (
                       <span className="font-bold text-red-500">
                         No Actions available
                       </span>
@@ -152,4 +133,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default MyOrders;

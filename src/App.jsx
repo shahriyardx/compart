@@ -4,6 +4,7 @@ import RequireAuth from "./firebase/RequireAuth";
 import AddProduct from "./pages/Dashboard/AddProduct";
 import EditProfile from "./pages/Dashboard/EditProfile";
 import Dashboard from "./pages/Dashboard/Index";
+import MyOrders from "./pages/Dashboard/MyOrders";
 import Orders from "./pages/Dashboard/Orders";
 import Products from "./pages/Dashboard/Products";
 import Profile from "./pages/Dashboard/Profile";
@@ -46,6 +47,7 @@ const App = () => {
         <Route path="/dashboard/products/add" element={<AddProduct />} />
 
         <Route path="/dashboard/orders" element={<Orders />} />
+        <Route path="/dashboard/orders/my" element={<MyOrders />} />
       </Routes>
     </div>
   );
