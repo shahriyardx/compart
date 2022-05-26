@@ -32,14 +32,17 @@ const Header = () => {
           <NavLink to="/">Home</NavLink>
           <NavLink to="/shop">Shop</NavLink>
           <NavLink to="/portfolio">Portfolio</NavLink>
-          <NavLink to="/dashboard">Dashboard</NavLink>
+          <NavLink to="/blog">Blog</NavLink>
           {user ? (
-            <button
-              onClick={() => signOut(auth)}
-              className="px-4 py-3 rounded-md text-white bg-red-500 hover:bg-red-600 font-semibold"
-            >
-              Logout
-            </button>
+            <>
+              <NavLink to="/dashboard">Dashboard</NavLink>
+              <button
+                onClick={() => signOut(auth)}
+                className="px-4 py-3 rounded-md text-white bg-red-500 hover:bg-red-600 font-semibold"
+              >
+                Logout
+              </button>
+            </>
           ) : (
             <NavLink to="/login">Login</NavLink>
           )}

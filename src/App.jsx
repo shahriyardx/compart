@@ -2,6 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import RequireAdmin from "./firebase/RequireAdmin";
 import RequireAuth from "./firebase/RequireAuth";
+import Blog from "./pages/Blog";
 import AddProduct from "./pages/Dashboard/AddProduct";
 import EditProfile from "./pages/Dashboard/EditProfile";
 import Dashboard from "./pages/Dashboard/Index";
@@ -26,6 +27,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/blog" element={<Blog />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/shop/:productId" element={<Product />} />
         <Route
