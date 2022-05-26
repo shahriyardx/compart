@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import RequireAdmin from "./firebase/RequireAdmin";
 import RequireAuth from "./firebase/RequireAuth";
 import AddProduct from "./pages/Dashboard/AddProduct";
 import EditProfile from "./pages/Dashboard/EditProfile";
@@ -56,12 +57,40 @@ const App = () => {
           }
         />
 
-        <Route path="/dashboard/users" element={<Users />} />
+        <Route
+          path="/dashboard/users"
+          element={
+            <RequireAdmin>
+              <Users />
+            </RequireAdmin>
+          }
+        />
 
-        <Route path="/dashboard/products" element={<Products />} />
-        <Route path="/dashboard/products/add" element={<AddProduct />} />
+        <Route
+          path="/dashboard/products"
+          element={
+            <RequireAdmin>
+              <Products />
+            </RequireAdmin>
+          }
+        />
+        <Route
+          path="/dashboard/products/add"
+          element={
+            <RequireAdmin>
+              <AddProduct />
+            </RequireAdmin>
+          }
+        />
 
-        <Route path="/dashboard/orders" element={<Orders />} />
+        <Route
+          path="/dashboard/orders"
+          element={
+            <RequireAdmin>
+              <Orders />
+            </RequireAdmin>
+          }
+        />
         <Route
           path="/dashboard/orders/my"
           element={
