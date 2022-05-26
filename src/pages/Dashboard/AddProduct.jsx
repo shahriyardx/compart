@@ -2,9 +2,11 @@ import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
 import DashPage from "../../components/Layout/DashPage";
+import useSwal from "../../hooks/useSwal";
 import { API_BASE } from "../config";
 
 const AddProduct = () => {
+  const Swal = useSwal();
   const {
     register,
     handleSubmit,
@@ -15,6 +17,10 @@ const AddProduct = () => {
   const onSubmit = async (prooductData) => {
     await axios.post(`${API_BASE}/products/add`, prooductData);
     reset();
+    Swal.fire({
+      text: "Product added succesfully",
+      icon: "success",
+    });
   };
 
   return (

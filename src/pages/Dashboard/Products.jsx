@@ -1,14 +1,11 @@
 import React from "react";
 import { useQuery } from "react-query";
 import DashPage from "../../components/Layout/DashPage";
+import useSwal from "../../hooks/useSwal";
 import { API_BASE } from "../config";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
-import "sweetalert2/dist/sweetalert2.css";
-
-const MySwal = withReactContent(Swal);
 
 const Products = () => {
+  const Swal = useSwal();
   const {
     data: products,
     isLoading,
@@ -19,7 +16,7 @@ const Products = () => {
   );
 
   const deleteProduct = async (productId) => {
-    MySwal.fire({
+    Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to recover this product!",
       icon: "warning",
@@ -33,8 +30,9 @@ const Products = () => {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        MySwal.fire({
+        Swal.fire({
           text: "Product Deleted",
+          icon: "success",
         });
         refetch();
       }

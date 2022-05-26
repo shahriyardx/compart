@@ -2,15 +2,12 @@ import axios from "axios";
 import React from "react";
 import { useQuery } from "react-query";
 import DashPage from "../../components/Layout/DashPage";
+import useSwal from "../../hooks/useSwal";
 import { API_BASE } from "../config";
 
 const Orders = () => {
-  const {
-    data: orders,
-    isLoading,
-    error,
-    refetch,
-  } = useQuery("orders", () =>
+  const Swal = useSwal();
+  const { data: orders, refetch } = useQuery("orders", () =>
     fetch(`${API_BASE}/order`).then((data) => data.json())
   );
 
@@ -22,12 +19,31 @@ const Orders = () => {
     };
 
     const newStatus = { order_id, status: statusMap[currentStatus] };
-    const { data: updateData } = await axios.put(
-      `${API_BASE}/order/update`,
-      newStatus
-    );
-
-    alert(updateData.success);
+    Swal.fire({
+      title: "Are you sure?",
+      text: `This will change the product status to ${statusMap[currentStatus]}`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Confirm",
+      showLoaderOnConfirm: true,
+      preConfirm: async () => {
+        return fetch(`${API_BASE}/order/update`, {
+          method: "PUT",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(newStatus),
+        }).then((response) => response.json());
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          icon: "success",
+          text: `Order has been ${statusMap[currentStatus]}`,
+        });
+        refetch();
+      }
+    });
   };
 
   return (

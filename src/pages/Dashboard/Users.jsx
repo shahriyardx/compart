@@ -2,15 +2,12 @@ import React from "react";
 import { useQuery } from "react-query";
 import DashPage from "../../components/Layout/DashPage";
 import { API_BASE } from "../config";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
-import "sweetalert2/dist/sweetalert2.css";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
-
-const MySwal = withReactContent(Swal);
+import useSwal from "../../hooks/useSwal";
 
 const Users = () => {
+  const Swal = useSwal();
   const [currentUser, loading] = useAuthState(auth);
   const {
     data: users,
@@ -22,7 +19,7 @@ const Users = () => {
   );
 
   const deleteUser = async (userId) => {
-    MySwal.fire({
+    Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to recover this product!",
       icon: "warning",
@@ -45,7 +42,7 @@ const Users = () => {
   };
 
   const toggleAdmin = async (email, currentRole) => {
-    MySwal.fire({
+    Swal.fire({
       title: "Are you sure?",
       text: "Making a user admin will give him all the permissions!",
       icon: "warning",
@@ -66,7 +63,7 @@ const Users = () => {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        MySwal.fire({
+        Swal.fire({
           text: "Operating succeded",
         });
         refetch();
