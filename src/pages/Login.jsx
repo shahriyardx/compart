@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import Container from "../components/Layout/Container";
 import Page from "../components/Layout/Page";
 import { FcGoogle, FcSynchronize } from "react-icons/fc";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   useSignInWithGoogle,
   useSignInWithEmailAndPassword,
@@ -15,6 +15,9 @@ import { API_BASE } from "./config";
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/dashboard";
+
   const [signInWithGoogle, google_user, google_loading, google_error] =
     useSignInWithGoogle(auth);
   const [signInWithEmailAndPassword, email_user, email_loading, email_error] =
@@ -45,7 +48,7 @@ const Login = () => {
     });
 
     localStorage.setItem("accessToken", accessToken);
-    navigate("/dashboard");
+    navigate(from);
   };
 
   useEffect(() => {

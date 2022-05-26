@@ -1,6 +1,8 @@
 import React from "react";
 import { BiMenu } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase";
 
 const DashHeader = ({ open, setOpen }) => {
   return (
@@ -17,6 +19,7 @@ const DashHeader = ({ open, setOpen }) => {
           Home
         </Link>
         <button
+          onClick={() => signOut(auth)}
           type="button"
           className="px-3 py-2 bg-red-500 text-white font-semibold rounded-lg"
         >
