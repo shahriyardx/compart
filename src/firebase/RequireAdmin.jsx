@@ -2,6 +2,7 @@ import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Navigate, useLocation } from "react-router-dom";
 import { auth } from ".";
+import Loading from "../components/Loading/Loading";
 import useProfile from "../hooks/useProfile";
 
 const RequireAdmin = (props) => {
@@ -10,7 +11,7 @@ const RequireAdmin = (props) => {
   const location = useLocation();
 
   if ((loading, profileLoading)) {
-    return <p className="text-2xl">Loading..</p>;
+    return <Loading />;
   }
 
   if (!user || profile.role !== "Admin") {
