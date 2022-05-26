@@ -15,7 +15,14 @@ const AddProduct = () => {
   } = useForm();
 
   const onSubmit = async (prooductData) => {
-    await axios.post(`${API_BASE}/products/add`, prooductData);
+    await fetch(`${API_BASE}/products/add`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+      body: JSON.stringify(prooductData),
+    }).then((data) => data.json());
     reset();
     Swal.fire({
       text: "Product added succesfully",

@@ -19,6 +19,7 @@ const CardComponent = ({ order }) => {
       method: "POST",
       headers: {
         "Content-type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
       body: JSON.stringify(order),
     })
@@ -68,6 +69,7 @@ const CardComponent = ({ order }) => {
           method: "PUT",
           headers: {
             "Content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
           body: JSON.stringify({
             order_id: order._id,

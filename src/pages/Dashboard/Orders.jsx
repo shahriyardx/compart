@@ -8,7 +8,11 @@ import { API_BASE } from "../config";
 const Orders = () => {
   const Swal = useSwal();
   const { data: orders, refetch } = useQuery("orders", () =>
-    fetch(`${API_BASE}/order`).then((data) => data.json())
+    fetch(`${API_BASE}/order`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    }).then((data) => data.json())
   );
 
   const updateStatus = async (currentStatus, order_id) => {
@@ -31,6 +35,7 @@ const Orders = () => {
           method: "PUT",
           headers: {
             "Content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
           body: JSON.stringify(newStatus),
         }).then((response) => response.json());

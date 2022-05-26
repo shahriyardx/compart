@@ -11,7 +11,11 @@ const useProfile = () => {
   useEffect(() => {
     if (!user) return;
 
-    fetch(`${API_BASE}/user/${user?.email}`)
+    fetch(`${API_BASE}/user/${user?.email}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setProfile(data);

@@ -39,8 +39,22 @@ const App = () => {
           }
         />
 
-        <Route path="/dashboard/profile" element={<Profile />} />
-        <Route path="/dashboard/profile/edit" element={<EditProfile />} />
+        <Route
+          path="/dashboard/profile"
+          element={
+            <RequireAuth>
+              <Profile />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/dashboard/profile/edit"
+          element={
+            <RequireAuth>
+              <EditProfile />
+            </RequireAuth>
+          }
+        />
 
         <Route path="/dashboard/users" element={<Users />} />
 
@@ -48,7 +62,14 @@ const App = () => {
         <Route path="/dashboard/products/add" element={<AddProduct />} />
 
         <Route path="/dashboard/orders" element={<Orders />} />
-        <Route path="/dashboard/orders/my" element={<MyOrders />} />
+        <Route
+          path="/dashboard/orders/my"
+          element={
+            <RequireAuth>
+              <MyOrders />
+            </RequireAuth>
+          }
+        />
 
         <Route path="/dashboard/pay/:orderId" element={<Payment />} />
       </Routes>

@@ -15,7 +15,11 @@ const Users = () => {
     error,
     refetch,
   } = useQuery("users", () =>
-    fetch(`${API_BASE}/user`).then((data) => data.json())
+    fetch(`${API_BASE}/user`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    }).then((data) => data.json())
   );
 
   const deleteUser = async (userId) => {
@@ -29,6 +33,9 @@ const Users = () => {
       preConfirm: async () => {
         return fetch(`${API_BASE}/user/delete/${userId}`, {
           method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
         }).then((response) => response.json());
       },
     }).then((result) => {
@@ -54,6 +61,7 @@ const Users = () => {
           method: "PUT",
           headers: {
             "Content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
           body: JSON.stringify({
             email,

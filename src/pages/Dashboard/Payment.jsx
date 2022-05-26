@@ -14,7 +14,11 @@ const stripePk = loadStripe(
 const Payment = () => {
   const { orderId } = useParams();
   const { data } = useQuery("order", () =>
-    fetch(`${API_BASE}/order/${orderId}`).then((data) => data.json())
+    fetch(`${API_BASE}/order/${orderId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    }).then((data) => data.json())
   );
 
   return (

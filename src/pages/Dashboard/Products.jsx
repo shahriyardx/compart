@@ -26,6 +26,9 @@ const Products = () => {
       preConfirm: async () => {
         return fetch(`${API_BASE}/products/delete/${productId}`, {
           method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
         }).then((response) => response.json());
       },
     }).then((result) => {

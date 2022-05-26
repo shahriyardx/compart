@@ -37,10 +37,14 @@ const Purchase = () => {
       due: total,
     };
 
-    const { data: responseData } = await axios.post(
-      `${API_BASE}/order/create`,
-      orderData
-    );
+    const responseData = await fetch(`${API_BASE}/order/create`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+      body: JSON.stringify(orderData),
+    }).then((data) => data.json());
 
     console.log(responseData);
     if (responseData.success) {

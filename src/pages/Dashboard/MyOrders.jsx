@@ -8,7 +8,11 @@ import { API_BASE } from "../config";
 const MyOrders = () => {
   const Swal = useSwal();
   const { data: orders, refetch } = useQuery("orders", () =>
-    fetch(`${API_BASE}/order/my`).then((data) => data.json())
+    fetch(`${API_BASE}/order/my`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    }).then((data) => data.json())
   );
 
   const deleteOrder = async (orderId) => {
@@ -22,6 +26,9 @@ const MyOrders = () => {
       preConfirm: async () => {
         return fetch(`${API_BASE}/order/delete/${orderId}`, {
           method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
         }).then((response) => response.json());
       },
     }).then((result) => {

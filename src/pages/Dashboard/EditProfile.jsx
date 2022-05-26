@@ -25,6 +25,7 @@ const EditProfile = () => {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
       body: JSON.stringify({ email: user.email, ...otherData }),
     })

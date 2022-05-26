@@ -21,7 +21,7 @@ const Sidebar = ({ open, setOpen }) => {
 
       <div className="flex flex-col">
         <NavLink to="/dashboard/profile">My Profile</NavLink>
-        {profile?.role == "Admin" && (
+        {profile?.role == "Customer" && (
           <NavLink to="/dashboard/orders/my">My Orders</NavLink>
         )}
         {profile?.role == "Admin" && (
