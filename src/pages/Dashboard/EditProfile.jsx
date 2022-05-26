@@ -5,10 +5,11 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import DashPage from "../../components/Layout/DashPage";
 import { auth } from "../../firebase";
+import useProfile from "../../hooks/useProfile";
 import { API_BASE } from "../config";
 
 const EditProfile = () => {
-  const [profile, setProfile] = useState({});
+  const [profile, profileLoading] = useProfile();
   const [user, loading] = useAuthState(auth);
   const { register, handleSubmit } = useForm();
   const [updateProfile, updating, error] = useUpdateProfile(auth);

@@ -1,21 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link } from "react-router-dom";
 import DashPage from "../../components/Layout/DashPage";
 import { auth } from "../../firebase";
-import { API_BASE } from "../config";
+import useProfile from "../../hooks/useProfile";
 
 const Profile = () => {
-  const [profile, setProfile] = useState({});
+  const [profile, profileLoading] = useProfile();
   const [user, loading] = useAuthState(auth);
-
-  useEffect(() => {
-    if (!user) return;
-
-    fetch(`${API_BASE}/user/${user?.email}`)
-      .then((response) => response.json())
-      .then((data) => setProfile(data));
-  }, [user]);
 
   return (
     <DashPage>

@@ -39,8 +39,6 @@ const Products = () => {
         refetch();
       }
     });
-
-    console.log(`Deleteting ${productId}`);
   };
 
   return (
