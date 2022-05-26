@@ -7,7 +7,7 @@ const Orders = () => {
       <h1 className="text-2xl">All Orders</h1>
 
       <div className="w-full mt-2 overflow-x-auto">
-        <table class="table-auto text-left w-full">
+        <table className="table-auto text-left w-full">
           <thead className="bg-black text-white">
             <tr>
               <th className="p-3 text-sm font-semibold text-left">Sl.</th>

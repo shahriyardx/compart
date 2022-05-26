@@ -32,14 +32,6 @@ const EditProfile = () => {
       });
   };
 
-  useEffect(() => {
-    if (!user) return;
-
-    fetch(`${API_BASE}/user/${user?.email}`)
-      .then((response) => response.json())
-      .then((data) => setProfile(data));
-  }, [user]);
-
   return (
     <DashPage>
       <div className="flex justify-between my-10">

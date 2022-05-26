@@ -5,10 +5,13 @@ import { API_BASE } from "../config";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import "sweetalert2/dist/sweetalert2.css";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase";
 
 const MySwal = withReactContent(Swal);
 
 const Users = () => {
+  const [currentUser, loading] = useAuthState(auth);
   const {
     data: users,
     isLoading,
@@ -99,12 +102,14 @@ const Users = () => {
                     {user.role}
                   </td>
                   <td className="p-3 text-sm text-gray-700 whitespace-nowrap flex gap-2">
-                    <button
-                      onClick={() => deleteUser()}
-                      className="px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg"
-                    >
-                      Delete
-                    </button>
+                    {currentUser?.email !== user.email && (
+                      <button
+                        onClick={() => deleteUser()}
+                        className="px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg"
+                      >
+                        Delete
+                      </button>
+                    )}
                     {user.role !== "Admin" ? (
                       <button
                         onClick={() => toggleAdmin(user.email, user.role)}
