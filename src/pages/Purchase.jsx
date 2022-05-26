@@ -6,10 +6,12 @@ import Container from "../components/Layout/Container";
 import Page from "../components/Layout/Page";
 import useProduct from "../hooks/useProduct";
 import useProfile from "../hooks/useProfile";
+import useSwal from "../hooks/useSwal";
 import { API_BASE } from "./config";
 
 const Purchase = () => {
   const navigate = useNavigate();
+  const Swal = useSwal();
   const quantityRef = useRef();
   const { productId } = useParams();
   const [product, loading] = useProduct(productId);
@@ -42,7 +44,12 @@ const Purchase = () => {
 
     console.log(responseData);
     if (responseData.success) {
-      alert("Order places");
+      Swal.fire({
+        text: "Order placed",
+        success: true,
+      });
+
+      navigate("/");
     }
   };
 

@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useAuthState, useUpdateProfile } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import { useQuery } from "react-query";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DashPage from "../../components/Layout/DashPage";
 import { auth } from "../../firebase";
 import useProfile from "../../hooks/useProfile";
+import useSwal from "../../hooks/useSwal";
 import { API_BASE } from "../config";
 
 const EditProfile = () => {
+  const Swal = useSwal();
   const [profile, profileLoading] = useProfile();
   const [user, loading] = useAuthState(auth);
   const { register, handleSubmit } = useForm();
@@ -28,7 +30,10 @@ const EditProfile = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        alert("Profile updated");
+        Swal.fire({
+          text: "Profile updated",
+          icon: "success",
+        });
       });
   };
 
