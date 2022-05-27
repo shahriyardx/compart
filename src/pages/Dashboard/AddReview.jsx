@@ -1,15 +1,20 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import DashPage from "../../components/Layout/DashPage";
 import { auth } from "../../firebase";
+import useProfile from "../../hooks/useProfile";
 import useSwal from "../../hooks/useSwal";
 import { API_BASE } from "../config";
 
 const AddReview = () => {
   const Swal = useSwal();
+  const navigate = useNavigate();
   const [user, loading] = useAuthState(auth);
+  const [profile, _] = useProfile();
+
   const {
     register,
     handleSubmit,
@@ -39,6 +44,12 @@ const AddReview = () => {
 
     reset();
   };
+
+  useEffect(() => {
+    if (profile && profile.role == "Admin") {
+      navigate("/dashboard");
+    }
+  }, [profile, navigate]);
   return (
     <DashPage>
       <h1 className="mt-5 mb-3 text-3xl font-bold text-center">Add a review</h1>

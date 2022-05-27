@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "react-query";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DashPage from "../../components/Layout/DashPage";
+import useProfile from "../../hooks/useProfile";
 import useSwal from "../../hooks/useSwal";
 import { API_BASE } from "../config";
 
 const MyOrders = () => {
   const Swal = useSwal();
+  const [profile, _] = useProfile();
+  const navigate = useNavigate();
+
   const { data: orders, refetch } = useQuery("orders", () =>
     fetch(`${API_BASE}/order/my`, {
       headers: {
@@ -41,6 +45,12 @@ const MyOrders = () => {
       }
     });
   };
+
+  useEffect(() => {
+    if (profile && profile.role == "Admin") {
+      navigate("/dashboard");
+    }
+  }, [profile, navigate]);
 
   return (
     <DashPage>
